@@ -2,18 +2,18 @@ const express = require("express");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const router = require("./routes/post.routes.js");
+
+// Set up express app
+const app = express();
+//Post Routes
+app.use("/api/posts", router);
 
 var corsOptions = {
   origin: "http://localhost:8000",
 };
 
 app.use(cors(corsOptions));
-
-// Set up express app
-const app = express();
-
-//Post Routes
-require("./app/routes/post.routes")(app);
 
 const http = require("http");
 
@@ -35,7 +35,7 @@ app.get("*", (req, res) =>
   })
 );
 
-const db = require("./app/models");
+const db = require("./models");
 
 db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and re-sync db.");

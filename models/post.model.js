@@ -18,8 +18,13 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       type: Sequelize.STRING,
     },
-    createdAt: { allowNull: false, type: Sequelize.DATE },
   });
 
-  return Post;
+  const Category = sequelize.define("category", {
+    title: {
+      type: Sequelize.STRING,
+    },
+  });
+
+  Category.hasMany(Post, { as: "posts" });
 };

@@ -1,22 +1,20 @@
-module.exports = (app) => {
-  const posts = require("../controllers/post.controller.js");
+const posts = require("../controllers/post.controller.js");
+var express = require("express");
+var router = express.Router();
 
-  var router = require("express").Router();
+// Create New Post
+router.post("/", posts.create);
 
-  // Create New Post
-  router.post("/", posts.create);
+// Retrieve all Posts
+router.get("/", posts.findAll);
 
-  // Retrieve all Posts
-  router.get("/", posts.findAll);
+// Retrieve Post with id
+router.get("/:id", posts.findOne);
 
-  // Retrieve Post with id
-  router.get("/:id", posts.findOne);
+// Update Post with id
+router.patch("/:id", posts.update);
 
-  // Update Post with id
-  router.patch("/:id", posts.update);
+// Delete Post with id
+router.delete("/:id", posts.delete);
 
-  // Delete Post with id
-  router.delete("/:id", posts.delete);
-
-  app.use("/api/posts", router);
-};
+module.exports = router;
