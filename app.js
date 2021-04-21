@@ -1,15 +1,19 @@
 const express = require("express");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
-// const cors = require("cors");
+const cors = require("cors");
 
-// var corsOptions = {
-//   origin: "http://localhost:8000",
-// };
-// app.use(cors(corsOptions));
+var corsOptions = {
+  origin: "http://localhost:8000",
+};
+
+app.use(cors(corsOptions));
 
 // Set up express app
 const app = express();
+
+//Post Routes
+require("./app/routes/post.routes")(app);
 
 const http = require("http");
 
