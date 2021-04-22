@@ -2,7 +2,6 @@ const db = require("../models");
 const Post = db.posts;
 const Op = db.Sequelize.Op;
 
-
 // Create Post Save a new Tutorial
 exports.create = (req, res) => {
   console.log(req.body);
@@ -64,7 +63,12 @@ exports.findOne = (req, res) => {
 
   Post.findByPk(id)
     .then((data) => {
-      res.send(data);
+      //Post Exists
+      if (data) {
+        res.send(data);
+      } else {
+        res.status(500).send({ error: "Post does not exists" });
+      }
     })
     .catch((err) => {
       res.status(500).send({
