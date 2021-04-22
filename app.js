@@ -3,7 +3,6 @@ const logger = require("morgan");
 const cors = require("cors");
 const router = require("./routes/post.routes.js");
 const db = require("./models");
-const http = require("http");
 
 // Set up express app
 const app = express();
@@ -11,7 +10,7 @@ const app = express();
 // Log requests to console.
 app.use(logger("dev"));
 
-//Cords
+// Cors
 var corsOptions = {
   origin: "http://localhost:8000",
 };
@@ -32,17 +31,17 @@ app.get("/", (req, res) =>
   })
 );
 
+
 //Server Init
 const port = process.env.PORT || 8000;
 app.set("port", port);
+app.listen(port);
 
-const server = http.createServer(app);
-server.listen(port);
-
-//Sequelize Sync
+//Sequelize Drop and
 // db.sequelize.sync({ force: true }).then(() => {
 //   console.log("Drop and re-sync db.");
 // });
+
 db.sequelize.sync().then(() => {
   console.log("Sync db.");
 });
