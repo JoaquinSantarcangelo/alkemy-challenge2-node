@@ -1,8 +1,8 @@
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
-const router = require("./routes/post.routes.js");
-const db = require("./models");
+const router = require("./app/routes/post.routes.js");
+const db = require("./app/models");
 
 // Set up express app
 const app = express();
