@@ -41,7 +41,7 @@ exports.create = (req, res) => {
     });
 };
 
-// Retrievse all Posts
+// Retrieve all Posts
 exports.findAll = (req, res) => {
   console.log("Finding all");
   Post.findAll()
