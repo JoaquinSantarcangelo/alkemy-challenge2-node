@@ -4,43 +4,41 @@ const Op = db.Sequelize.Op;
 
 // Create Post Save a new Tutorial
 exports.create = (req, res) => {
-  console.log(req.body);
+  const { title, content, image } = req.body;
 
-  res.send(req.body);
+  if (!req.body.title || !req.body.content || !req.body.image) {
+    res.status(500).send({
+      message: "Error: Invalid JSON.",
+    });
+    return;
+  }
 
-  // if (!req.body.title || !req.body.content || !req.body.image) {
-  //   res.status(500).send({
-  //     message: "Error: Invalid JSON.",
-  //   });
-  //   return;
-  // }
-
-  //Verifies Image Extension
-  // var extension = req.body.image.substr(file.lastIndexOf(".") + 1);
-  // if (!/(jpg|png|webp|jpeg)$/gi.test(extension)) {
-  //   res.status(500).send({
-  //     message: "Error: Invalid Image Format.",
-  //   });
-  //   return;
-  // }
+  // Verifies Image Extension
+  var extension = req.body.image.substr(req.body.image.lastIndexOf(".") + 1);
+  if (!/(jpg|png|webp|jpeg)$/gi.test(extension)) {
+    res.status(500).send({
+      message: "Error: Invalid Image Format.",
+    });
+    return;
+  }
 
   // Create Post
-  // const post = {
-  //   title: req.body.title,
-  //   content: req.body.description,
-  //   image: req.body.image,
-  //   createdAt: new Date(),
-  // };
+  const post = {
+    title: req.body.title,
+    content: req.body.content,
+    image: req.body.image,
+    createdAt: new Date(),
+  };
 
-  // Post.create(post)
-  //   .then((data) => {
-  //     res.send(data);
-  //   })
-  //   .catch((err) => {
-  //     res.status(500).send({
-  //       message: err.message || "Some error occurred.",
-  //     });
-  //   });
+  Post.create(post)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred.",
+      });
+    });
 };
 
 // Retrievse all Posts
@@ -104,7 +102,7 @@ exports.update = (req, res) => {
 
 // Delete Post
 exports.delete = (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params;
 
   Post.destroy({
     where: { id: id },

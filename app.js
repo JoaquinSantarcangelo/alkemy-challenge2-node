@@ -11,9 +11,6 @@ const app = express();
 // Log requests to console.
 app.use(logger("dev"));
 
-//Post Routes
-app.use("/api/posts", router);
-
 //Cords
 var corsOptions = {
   origin: "http://localhost:8000",
@@ -23,11 +20,10 @@ app.use(cors(corsOptions));
 
 // Parse requests
 app.use(express.json());
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
+app.use(express.urlencoded());
+
+//Post Routes
+app.use("/api/posts", router);
 
 // Test route
 app.get("/", (req, res) =>
