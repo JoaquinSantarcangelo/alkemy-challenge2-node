@@ -14,9 +14,12 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       type: Sequelize.STRING,
     },
-    description: {
+    content: {
       allowNull: false,
       type: Sequelize.STRING,
+    },
+    createdAt: {
+      type: Sequelize.DATE,
     },
   });
 
@@ -27,4 +30,5 @@ module.exports = (sequelize, Sequelize) => {
   });
 
   Category.hasMany(Post, { as: "posts" });
+  return Post;
 };
