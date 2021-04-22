@@ -37,7 +37,7 @@ const port = process.env.PORT || 8000;
 app.set("port", port);
 app.listen(port);
 
-//Sequelize Drop and
+//Sequelize Drop and Sync
 // db.sequelize.sync({ force: true }).then(() => {
 //   console.log("Drop and re-sync db.");
 // });
